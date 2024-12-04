@@ -38,6 +38,7 @@ public class ReorderBuffer {
     }
 
     public boolean retireInst() {
+        System.out.println("test");
         // 3 cases
         // 1. regular reg dest inst
         // 2. isBranch w/ mispredict
