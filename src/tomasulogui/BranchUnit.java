@@ -3,7 +3,7 @@ package tomasulogui;
 public class BranchUnit extends FunctionalUnit {
     
     public static final int EXEC_CYCLES = 1;
-    CDB cdbBranch;
+    CDB cdbBranch = new CDB(simulator);
 
     
     public BranchUnit(PipelineSimulator sim) {

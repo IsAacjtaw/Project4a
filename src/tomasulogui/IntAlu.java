@@ -2,7 +2,7 @@ package tomasulogui;
 
 public class IntAlu extends FunctionalUnit{
   public static final int EXEC_CYCLES = 1;
-  CDB cdbAlu;
+  CDB cdbAlu = new CDB(simulator);
 
   public IntAlu(PipelineSimulator sim) {
     super(sim);

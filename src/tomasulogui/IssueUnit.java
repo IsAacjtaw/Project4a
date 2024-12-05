@@ -29,7 +29,7 @@ public class IssueUnit {
         reservation1Free = false;
         
         //Check if it is a load or a store and set type
-        if(opcode == 0 | opcode == 1){
+        if(opcode == 0 || opcode == 1){
             type = EXEC_TYPE.NONE;
         }
         //Check if the instruction is a branch including jumps, 
@@ -74,8 +74,8 @@ public class IssueUnit {
         //and refine
         else{
             type = EXEC_TYPE.ALU;
-            if (simulator.alu.stations[0].stat == 
-                    ReservationStation.Status.FREE){
+            if (simulator.alu.stations[0] == 
+                    null){
                 reservation0Free = true;
             }
             else if(simulator.alu.stations[1].stat == 
@@ -92,7 +92,7 @@ public class IssueUnit {
         // to issue, we make an IssuedInst, filling in what we know
         // We check the BTB, and put prediction if branch, updating PC
         //     if pred taken, incr PC otherwise
-        if((ROBFree && reservation0Free) | ROBFree && reservation1Free){
+        if((ROBFree && reservation0Free) || (ROBFree && reservation1Free)){
             issuee = issuee.createIssuedInst(instruc);
         }
         simulator.btb.predictBranch(issuee);
@@ -100,11 +100,11 @@ public class IssueUnit {
         simulator.reorder.updateInstForIssue(issuee);
         // We then check the CDB, and see if it is broadcasting data we need,
         //    so that we can forward during issue
-        if (issuee.regSrc1Tag == simulator.cdb.dataTag){
+        if ((issuee.regSrc1Tag == simulator.cdb.dataTag) && simulator.cdb.dataValid){
             issuee.setRegSrc1Value(simulator.cdb.getDataValue());
             issuee.setRegSrc1Valid();
         }
-        if (issuee.regSrc2Tag == simulator.cdb.dataTag){
+        if ((issuee.regSrc2Tag == simulator.cdb.dataTag) && simulator.cdb.dataValid){
             issuee.setRegSrc2Value(simulator.cdb.getDataValue());
             issuee.setRegSrc2Valid();
         }

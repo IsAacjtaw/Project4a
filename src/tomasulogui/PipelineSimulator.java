@@ -12,17 +12,17 @@ public class PipelineSimulator {
     boolean isMemoryLoaded;
     boolean isHalted;
 
-    ProgramCounter pc;
-    IssueUnit issue;
-    BranchPredictor btb;
+    ProgramCounter pc = new ProgramCounter(this);
+    IssueUnit issue = new IssueUnit(this);
+    BranchPredictor btb = new BranchPredictor(this);
     ReorderBuffer reorder;
-    RegisterFile regs;
-    CDB cdb;
-    LoadBuffer loader;
-    IntAlu alu;
-    IntMult multiplier;
-    IntDivide divider;
-    BranchUnit branchUnit;
+    RegisterFile regs = new RegisterFile(this);
+    CDB cdb = new CDB(this);
+    LoadBuffer loader = new LoadBuffer(this);
+    IntAlu alu = new IntAlu(this);
+    IntMult multiplier = new IntMult(this);
+    IntDivide divider = new IntDivide(this);
+    BranchUnit branchUnit = new BranchUnit(this);
 
 	TomasuloGUIView view;
 	
@@ -383,13 +383,32 @@ public class PipelineSimulator {
     }
 
     public void updateCDB() {
-      // here, we need to poll the functional units and see if they want to
-      // writeback.  We pick longest running of those who want to use CDB and
-      // notify them they can write
-      cdb.setDataValid(false);
+        // here, we need to poll the functional units and see if they want to
+        // writeback.  We pick longest running of those who want to use CDB and
+        // notify them they can write
+        cdb.setDataValid(false);
 
-      // hint: start with divider, and give it first chance of getting CDB
-
+        // hint: start with divider, and give it first chance of getting CDB
+        // Check if the divider operation is available
+        if (divider.cdbDiv.getDataValid()) {
+            // Set the dividers cdb values to the actual cdb's values
+            cdb.dataTag = divider.cdbDiv.getDataTag();
+            cdb.dataValue = divider.cdbDiv.getDataValue();
+        } // Check if the multiplier output is available 
+        else if (multiplier.cdbMult.getDataValid()) {
+            // Set the muliplier cdb values to the actual cdb's values
+            cdb.dataTag = multiplier.cdbMult.getDataTag();
+            cdb.dataValue = multiplier.cdbMult.getDataValue();
+        } // Check if the ALU output is available
+        else if (alu.cdbAlu.getDataValid()) {
+            // Set the ALU cdb values to the actual cdb's values
+            cdb.dataTag = alu.cdbAlu.getDataTag();
+            cdb.dataValue = alu.cdbAlu.getDataValue();
+        }
+        else if(branchUnit.cdbBranch.getDataValid()){
+            cdb.dataTag = branchUnit.cdbBranch.getDataTag();
+            cdb.dataValue = branchUnit.cdbBranch.getDataValue();
+        }
     }
 
     public static void main(String[] args) {

@@ -3,7 +3,7 @@ package tomasulogui;
 public class IntMult extends FunctionalUnit {
 
     public static final int EXEC_CYCLES = 4;
-    CDB cdbMult;
+    CDB cdbMult = new CDB(simulator);
     public IntMult(PipelineSimulator sim) {
         super(sim);
     }

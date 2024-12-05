@@ -1,5 +1,7 @@
 package tomasulogui;
 
+import tomasulogui.IssuedInst.INST_TYPE;
+
 public class ReservationStation {
 
     PipelineSimulator simulator;
@@ -24,6 +26,7 @@ public class ReservationStation {
     int address;
     boolean predictedTaken = false;
 
+    
     public ReservationStation(PipelineSimulator sim) {
         simulator = sim;
     }
@@ -72,5 +75,15 @@ public class ReservationStation {
         // TODO add code to insert inst into reservation station
         // check instruction type
         // Set reservation station correctly
+       //Check for type if immediate run this 
+        if(inst.opcode == INST_TYPE.ADDI){
+            tag1 = inst.regSrc1Tag;
+            tag2 = inst.regSrc2Tag;
+            data1 = inst.regSrc1;
+            data2 = inst.immediate;
+            data1Valid = inst.regSrc1Valid;
+            data2Valid = true;
+            stat = Status.SITTING;
+        }
     }
 }

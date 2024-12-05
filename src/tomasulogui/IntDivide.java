@@ -3,7 +3,7 @@ package tomasulogui;
 public class IntDivide extends FunctionalUnit {
 
     public static final int EXEC_CYCLES = 7;
-    CDB cdbDiv;
+    CDB cdbDiv = new CDB(simulator);
     public IntDivide(PipelineSimulator sim) {
         super(sim);
     }
