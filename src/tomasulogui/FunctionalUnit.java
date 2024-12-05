@@ -8,8 +8,8 @@ public abstract class FunctionalUnit {
 
     public FunctionalUnit(PipelineSimulator sim) {
         simulator = sim;
-        stations[0] = new ReservationStation(simulator);
-        stations[1] = new ReservationStation(simulator);
+        stations[0] = new ReservationStation(sim);
+        stations[1] = new ReservationStation(sim);
     }
 
     public void squashAll() {
@@ -27,16 +27,23 @@ public abstract class FunctionalUnit {
                 // station is done computing
             }
         }
-        if (stations[1].stat == ReservationStation.Status.PROCESSING) {
+        else if (stations[1].stat == ReservationStation.Status.PROCESSING) {
             if (currExCycle++ == getExecCycles()) {
                 // station is done computing
             }
         }
-
+        else if (stations[0].stat == ReservationStation.Status.SITTING) {
+            // initiate computation
+        }
+        else if (stations[1].stat == ReservationStation.Status.SITTING) {
+            // initiate computation
+        }
+        
     }
 
     public void acceptIssue(IssuedInst inst) {
         // todo - fill in reservation station (if available) with data from inst
+        // Right now, this is handled in issue unit in execution cycle. 
     }
 
 }
