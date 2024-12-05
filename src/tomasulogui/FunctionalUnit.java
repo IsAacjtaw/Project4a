@@ -8,7 +8,8 @@ public abstract class FunctionalUnit {
 
     public FunctionalUnit(PipelineSimulator sim) {
         simulator = sim;
-
+        stations[0] = new ReservationStation(simulator);
+        stations[1] = new ReservationStation(simulator);
     }
 
     public void squashAll() {

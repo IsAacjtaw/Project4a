@@ -74,8 +74,8 @@ public class IssueUnit {
         //and refine
         else{
             type = EXEC_TYPE.ALU;
-            if (simulator.alu.stations[0] == 
-                    null){
+            if (simulator.alu.stations[0].stat == 
+                    ReservationStation.Status.FREE){
                 reservation0Free = true;
             }
             else if(simulator.alu.stations[1].stat == 

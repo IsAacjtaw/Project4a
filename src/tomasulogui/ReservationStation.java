@@ -75,15 +75,31 @@ public class ReservationStation {
         // TODO add code to insert inst into reservation station
         // check instruction type
         // Set reservation station correctly
-       //Check for type if immediate run this 
-        if(inst.opcode == INST_TYPE.ADDI){
+       
+//Check for type if immediate run this 
+        if(inst.opcode == INST_TYPE.ADDI || inst.opcode == INST_TYPE.ANDI ||
+                inst.opcode == INST_TYPE.ORI || inst.opcode == INST_TYPE.XORI){
             tag1 = inst.regSrc1Tag;
             tag2 = inst.regSrc2Tag;
             data1 = inst.regSrc1;
-            data2 = inst.immediate;
+            data2 = inst.regSrc1Value;
             data1Valid = inst.regSrc1Valid;
             data2Valid = true;
             stat = Status.SITTING;
         }
+        if(inst.opcode == INST_TYPE.ADD || inst.opcode == INST_TYPE.AND || 
+                inst.opcode == INST_TYPE.DIV || inst.opcode == INST_TYPE.MUL ||
+                inst.opcode == INST_TYPE.OR || inst.opcode == INST_TYPE.SLL ||
+                inst.opcode == INST_TYPE.SRA || inst.opcode == INST_TYPE.SRL ||
+                inst.opcode == INST_TYPE.SUB || inst.opcode == INST_TYPE.XOR){
+            tag1 = inst.regSrc1Tag;
+            tag2 = inst.regSrc2Tag;
+            data1 = inst.regSrc1Value;
+            data2 = inst.regSrc2Value;
+            data1Valid = inst.regSrc1Valid;
+            data2Valid = true;
+            stat = Status.SITTING;
+        }
+        
     }
 }
