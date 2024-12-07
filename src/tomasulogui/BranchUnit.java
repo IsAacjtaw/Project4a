@@ -22,4 +22,12 @@ public class BranchUnit extends FunctionalUnit {
     public int getExecCycles() {
         return EXEC_CYCLES;
     }
+    
+    public void sendToCDB(int resultTag, int resultValue) {
+        if (!cdbBranch.getDataValid()) {
+            cdbBranch.setDataTag(resultTag);
+            cdbBranch.setDataValue(resultValue);
+            cdbBranch.setDataValid(true);
+        }
+    }
 }

@@ -394,20 +394,24 @@ public class PipelineSimulator {
             // Set the dividers cdb values to the actual cdb's values
             cdb.dataTag = divider.cdbDiv.getDataTag();
             cdb.dataValue = divider.cdbDiv.getDataValue();
+            divider.cdbDiv.setDataValid(false);
         } // Check if the multiplier output is available 
         else if (multiplier.cdbMult.getDataValid()) {
             // Set the muliplier cdb values to the actual cdb's values
             cdb.dataTag = multiplier.cdbMult.getDataTag();
             cdb.dataValue = multiplier.cdbMult.getDataValue();
+            multiplier.cdbMult.setDataValid(false);
         } // Check if the ALU output is available
         else if (alu.cdbAlu.getDataValid()) {
             // Set the ALU cdb values to the actual cdb's values
             cdb.dataTag = alu.cdbAlu.getDataTag();
             cdb.dataValue = alu.cdbAlu.getDataValue();
+            alu.cdbAlu.setDataValid(false);
         }
         else if(branchUnit.cdbBranch.getDataValid()){
             cdb.dataTag = branchUnit.cdbBranch.getDataTag();
             cdb.dataValue = branchUnit.cdbBranch.getDataValue();
+            branchUnit.cdbBranch.setDataValid(false);
         }
     }
 

@@ -9,11 +9,19 @@ public class IntDivide extends FunctionalUnit {
     }
 
     public int calculateResult(int station) {
-        int result = 0;
+        int result = stations[station].data1 / stations[station].data2;
         return result;
     }
 
     public int getExecCycles() {
         return EXEC_CYCLES;
+    }
+    
+    public void sendToCDB(int resultTag, int resultValue) {
+        if (!cdbDiv.getDataValid()) {
+            cdbDiv.setDataTag(resultTag);
+            cdbDiv.setDataValue(resultValue);
+            cdbDiv.setDataValid(true);
+        }
     }
 }

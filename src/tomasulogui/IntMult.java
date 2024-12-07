@@ -9,12 +9,20 @@ public class IntMult extends FunctionalUnit {
     }
 
     public int calculateResult(int station) {
-        int result = 0;
+        int result = stations[station].data1 * stations[station].data2;
         return result;
 
     }
 
     public int getExecCycles() {
         return EXEC_CYCLES;
+    }
+    
+    public void sendToCDB(int resultTag, int resultValue) {
+        if (!cdbMult.getDataValid()) {
+            cdbMult.setDataTag(resultTag);
+            cdbMult.setDataValue(resultValue);
+            cdbMult.setDataValid(true);
+        }
     }
 }
