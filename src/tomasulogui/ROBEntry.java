@@ -71,9 +71,35 @@ public class ROBEntry {
         // 1. update the instruction, as shown in 2nd line of code above
         // 2. update the fields of the ROBEntry, as shown in the 1st line of code above
         
+        // #1 Update the issued instruction
+        if (inst.regDestUsed) {
+            int regDest = inst.getRegDest();
+            rob.setTagForReg(regDest, rearQ);
+            inst.setRegDestTag(rob.getTagForReg(regDest));
+            System.out.println(rob.getTagForReg(regDest));
+        }
+        if (inst.regSrc1Used) {
+            // Special case for R0
+            if (inst.getRegSrc1() == 0) {
+                inst.setRegSrc1Value(0);
+                inst.setRegSrc1Valid();
+            }
+            System.out.println(rob.getTagForReg(inst.getRegSrc1()));
+        }
+        if (inst.regSrc2Used) {
+            // Special case for R0
+            if (inst.getRegSrc2() == 0) {
+                inst.setRegSrc2Value(0);
+                inst.setRegSrc2Valid();
+            }
+            System.out.println(rob.getTagForReg(inst.getRegSrc2()));
+        }
+        System.out.println("immediate val: " + inst.immediate);
+        
+        // #2 Update the reorder buffer entry
         predictTaken = inst.branchPrediction;
         writeReg = inst.regDest;
-        opcode = inst.opcode;
+        opcode = inst.getOpcode();
         writeValue = rob.regs.getReg(inst.regDest);
         
         // set mispredict here

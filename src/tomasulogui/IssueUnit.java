@@ -95,7 +95,8 @@ public class IssueUnit {
         if((ROBFree && reservation0Free) || (ROBFree && reservation1Free)){
             issuee = issuee.createIssuedInst(instruc);
         }
-        simulator.btb.predictBranch(issuee);
+        // I'm commenting out the following line to make stuff work.
+        //simulator.btb.predictBranch(issuee);
         // We then send this to the ROB, which fills in the data fields
         simulator.reorder.updateInstForIssue(issuee);
         // We then check the CDB, and see if it is broadcasting data we need,
