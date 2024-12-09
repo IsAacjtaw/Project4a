@@ -18,11 +18,13 @@ public class IntMult extends FunctionalUnit {
         return EXEC_CYCLES;
     }
     
-    public void sendToCDB(int resultTag, int resultValue) {
-        if (!cdbMult.getDataValid()) {
+    public boolean sendToCDB(int resultTag, int resultValue) {
+        boolean sendable = !cdbMult.getDataValid();
+        if (sendable) {
             cdbMult.setDataTag(resultTag);
             cdbMult.setDataValue(resultValue);
             cdbMult.setDataValid(true);
         }
+        return sendable;
     }
 }

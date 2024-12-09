@@ -23,11 +23,13 @@ public class BranchUnit extends FunctionalUnit {
         return EXEC_CYCLES;
     }
     
-    public void sendToCDB(int resultTag, int resultValue) {
-        if (!cdbBranch.getDataValid()) {
+    public boolean sendToCDB(int resultTag, int resultValue) {
+        boolean sendable = !cdbBranch.getDataValid();
+        if (sendable) {
             cdbBranch.setDataTag(resultTag);
             cdbBranch.setDataValue(resultValue);
             cdbBranch.setDataValid(true);
         }
+        return sendable;
     }
 }

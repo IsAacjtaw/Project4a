@@ -5,6 +5,7 @@ public abstract class FunctionalUnit {
     PipelineSimulator simulator;
     ReservationStation[] stations = new ReservationStation[2];
     int currExCycle;
+    int stationSent = -1;
 
     public FunctionalUnit(PipelineSimulator sim) {
         simulator = sim;
@@ -20,36 +21,49 @@ public abstract class FunctionalUnit {
 
     public abstract int getExecCycles();
     
-    public abstract void sendToCDB(int resultTag, int resultValue);
+    public abstract boolean sendToCDB(int resultTag, int resultValue);
 
     public void execCycle(CDB cdb) {
         //todo - start executing, ask for CDB, etc.
-        if (stations[0].stat == ReservationStation.Status.PROCESSING) {
-            currExCycle++;
-            if (currExCycle >= getExecCycles()) {
-                // station is done computing
-                sendToCDB(stations[0].destTag, calculateResult(0));
-            }
-        }
-        else if (stations[1].stat == ReservationStation.Status.PROCESSING) {
-            currExCycle++;
-            if (currExCycle >= getExecCycles()) {
-                // station is done computing
-                sendToCDB(stations[1].destTag, calculateResult(1));
-            }
-        }
-        else if (stations[0].stat == ReservationStation.Status.SITTING) {
+        if (stations[0].stat == ReservationStation.Status.SITTING) {
             // initiate computation
             if (stations[0].isReady()) {
                 stations[0].stat = ReservationStation.Status.PROCESSING;
+                currExCycle++;
+                
             }
         }
         else if (stations[1].stat == ReservationStation.Status.SITTING) {
             // initiate computation
             if (stations[1].isReady()) {
                 stations[1].stat = ReservationStation.Status.PROCESSING;
+                currExCycle++;
             }
         }
+        if (stationSent > -1) {
+            stations[stationSent] = new ReservationStation(simulator);
+            stationSent = -1;
+        }
+        else if (stations[0].stat == ReservationStation.Status.PROCESSING) {
+            if (currExCycle >= getExecCycles()) {
+                // station is done computing
+                if (sendToCDB(stations[0].destTag, calculateResult(0))) {
+                    stationSent = 0;
+                }
+            }
+            currExCycle++;
+        }
+        else if (stations[1].stat == ReservationStation.Status.PROCESSING) {
+            currExCycle++;
+            if (currExCycle >= getExecCycles()) {
+                // station is done computing
+                if (sendToCDB(stations[1].destTag, calculateResult(0))) {
+                    stationSent = 1;
+                }
+            }
+            currExCycle++;
+        }
+        
         
     }
 

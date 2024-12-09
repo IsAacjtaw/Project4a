@@ -93,7 +93,6 @@ public class ROBEntry {
             }
             System.out.println(rob.getTagForReg(inst.getRegSrc2()));
         }
-        System.out.println("immediate val: " + inst.immediate);
         
         // #2 Update the reorder buffer entry
         instPC = inst.getPC();

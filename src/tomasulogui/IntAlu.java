@@ -82,11 +82,13 @@ public class IntAlu extends FunctionalUnit {
         return EXEC_CYCLES;
     }
     
-    public void sendToCDB(int resultTag, int resultValue) {
-        if (!cdbAlu.getDataValid()) {
+    public boolean sendToCDB(int resultTag, int resultValue) {
+        boolean sendable = !cdbAlu.getDataValid();
+        if (sendable) {
             cdbAlu.setDataTag(resultTag);
             cdbAlu.setDataValue(resultValue);
             cdbAlu.setDataValid(true);
         }
+        return sendable;
     }
 }

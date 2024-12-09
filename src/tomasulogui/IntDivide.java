@@ -17,11 +17,13 @@ public class IntDivide extends FunctionalUnit {
         return EXEC_CYCLES;
     }
     
-    public void sendToCDB(int resultTag, int resultValue) {
-        if (!cdbDiv.getDataValid()) {
+    public boolean sendToCDB(int resultTag, int resultValue) {
+        boolean sendable = !cdbDiv.getDataValid();
+        if (sendable) {
             cdbDiv.setDataTag(resultTag);
             cdbDiv.setDataValue(resultValue);
             cdbDiv.setDataValid(true);
         }
+        return sendable;
     }
 }
