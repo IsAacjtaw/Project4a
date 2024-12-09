@@ -29,7 +29,10 @@ public class IssueUnit {
         reservation1Free = false;
         
         //Check if it is a load or a store and set type
-        if(opcode == 0 || opcode == 1){
+        if(opcode == 0){
+            type = EXEC_TYPE.LOAD;
+        }
+        else if(opcode == 1){
             type = EXEC_TYPE.NONE;
         }
         //Check if the instruction is a branch including jumps, 
@@ -154,6 +157,9 @@ public class IssueUnit {
             else if(reservation1Free){
                 simulator.branchUnit.stations[1].loadInst(issuee);
             }
+        }
+        else if(type == EXEC_TYPE.LOAD){
+            simulator.loader.acceptIssue(issuee);
         }
         else{
             

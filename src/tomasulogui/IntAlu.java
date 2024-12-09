@@ -72,7 +72,7 @@ public class IntAlu extends FunctionalUnit {
           //  case "SW":
             //  return regA + immed;    
             default:
-                System.out.println("You shouldn't be here INTALU default");
+                System.out.println(instructype + "You shouldn't be here INTALU default");
                 
         }
         return result;
