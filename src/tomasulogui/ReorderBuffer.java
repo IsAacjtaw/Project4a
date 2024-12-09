@@ -38,7 +38,6 @@ public class ReorderBuffer {
     }
 
     public boolean retireInst() {
-        System.out.println("test");
         // 3 cases
         // 1. regular reg dest inst
         // 2. isBranch w/ mispredict
@@ -92,7 +91,7 @@ public class ReorderBuffer {
         // could be store address source
         
         if (cdb.getDataValid()) {
-            regs.setReg(cdb.getDataTag(), cdb.getDataValue());
+            this.getEntryByTag(cdb.getDataTag()).writeValue = cdb.getDataValue();
             this.getEntryByTag(cdb.getDataTag()).complete = true;
         }
     }

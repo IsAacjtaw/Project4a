@@ -75,7 +75,7 @@ public class ROBEntry {
             int regDest = inst.getRegDest();
             rob.setTagForReg(regDest, rearQ);
             inst.setRegDestTag(rob.getTagForReg(regDest));
-            System.out.println(rob.getTagForReg(regDest));
+            //System.out.println(rob.getTagForReg(regDest));
         }
         if (inst.regSrc1Used) {
             // Special case for R0
@@ -83,7 +83,7 @@ public class ROBEntry {
                 inst.setRegSrc1Value(0);
                 inst.setRegSrc1Valid();
             }
-            System.out.println(rob.getTagForReg(inst.getRegSrc1()));
+            //System.out.println(rob.getTagForReg(inst.getRegSrc1()));
         }
         if (inst.regSrc2Used) {
             // Special case for R0
@@ -91,7 +91,7 @@ public class ROBEntry {
                 inst.setRegSrc2Value(0);
                 inst.setRegSrc2Valid();
             }
-            System.out.println(rob.getTagForReg(inst.getRegSrc2()));
+            //System.out.println(rob.getTagForReg(inst.getRegSrc2()));
         }
         
         // #2 Update the reorder buffer entry

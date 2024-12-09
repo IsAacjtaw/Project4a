@@ -99,9 +99,6 @@ public class IssueUnit {
             issuee = issuee.createIssuedInst(instruc);
             issuee.setPC(simulator.getPC());
         }
-        if (type == EXEC_TYPE.LOAD) {
-            simulator.loader.acceptIssue(issuee);
-        }
         if(type == EXEC_TYPE.BRANCH){
             simulator.btb.predictBranch(issuee);
         }
@@ -160,6 +157,9 @@ public class IssueUnit {
             else if(reservation1Free){
                 simulator.branchUnit.stations[1].loadInst(issuee);
             }
+        }
+        else if (type == EXEC_TYPE.LOAD) {
+            simulator.loader.acceptIssue(issuee);
         }
         else{
             
