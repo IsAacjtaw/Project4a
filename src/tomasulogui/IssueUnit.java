@@ -96,7 +96,9 @@ public class IssueUnit {
             issuee = issuee.createIssuedInst(instruc);
         }
         // I'm commenting out the following line to make stuff work.
-        //simulator.btb.predictBranch(issuee);
+        if(type == EXEC_TYPE.BRANCH){
+            simulator.btb.predictBranch(issuee);
+        }
         // We then send this to the ROB, which fills in the data fields
         simulator.reorder.updateInstForIssue(issuee);
         // We then check the CDB, and see if it is broadcasting data we need,
