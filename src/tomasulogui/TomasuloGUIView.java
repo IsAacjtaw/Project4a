@@ -2164,7 +2164,7 @@ public class TomasuloGUIView extends FrameView {
             Adder1Tag2.setText(Integer.toString(simulator.alu.stations[0].tag2));
             Adder1Val1.setText(Integer.toString(simulator.alu.stations[0].data1));
             Adder1Val2.setText(Integer.toString(simulator.alu.stations[0].data2));
-            Adder1Busy.setSelected(true);
+            Adder1Busy.setSelected(simulator.alu.stations[0].stat == ReservationStation.Status.PROCESSING);
         }
         else {
             Adder1Dest.setText("");
@@ -2172,7 +2172,7 @@ public class TomasuloGUIView extends FrameView {
             Adder1Tag2.setText("");
             Adder1Val1.setText("");
             Adder1Val2.setText("");
-            Adder1Busy.setSelected(false);
+            Adder1Busy.setSelected(simulator.alu.stations[0].stat == ReservationStation.Status.PROCESSING);
         }
         if (simulator.alu.stations[1] != null) {
             Adder2Dest.setText(Integer.toString(simulator.alu.stations[1].destTag));
@@ -2180,7 +2180,7 @@ public class TomasuloGUIView extends FrameView {
             Adder2Tag2.setText(Integer.toString(simulator.alu.stations[1].tag2));
             Adder2Val1.setText(Integer.toString(simulator.alu.stations[1].data1));
             Adder2Val2.setText(Integer.toString(simulator.alu.stations[1].data2));
-            Adder2Busy.setSelected(true);
+            Adder2Busy.setSelected(simulator.alu.stations[1].stat == ReservationStation.Status.PROCESSING);
         }
         else {
             Adder2Dest.setText("");
@@ -2188,7 +2188,7 @@ public class TomasuloGUIView extends FrameView {
             Adder2Tag2.setText("");
             Adder2Val1.setText("");
             Adder2Val2.setText("");
-            Adder2Busy.setSelected(false);
+            Adder2Busy.setSelected(simulator.alu.stations[1].stat == ReservationStation.Status.PROCESSING);
         }
 
 
@@ -2199,7 +2199,7 @@ public class TomasuloGUIView extends FrameView {
             Mult1Tag2.setText(Integer.toString(simulator.multiplier.stations[0].tag2));
             Mult1Val1.setText(Integer.toString(simulator.multiplier.stations[0].data1));
             Mult1Val2.setText(Integer.toString(simulator.multiplier.stations[0].data2));
-            Mult1Busy.setSelected(true);
+            Mult1Busy.setSelected(simulator.multiplier.stations[0].stat == ReservationStation.Status.PROCESSING);
         }
         else {
             Mult1Dest.setText("");
@@ -2207,7 +2207,7 @@ public class TomasuloGUIView extends FrameView {
             Mult1Tag2.setText("");
             Mult1Val1.setText("");
             Mult1Val2.setText("");
-            Mult1Busy.setSelected(false);
+            Mult1Busy.setSelected(simulator.multiplier.stations[0].stat == ReservationStation.Status.PROCESSING);
         }
         if (simulator.multiplier.stations[1] != null) {
             Mult2Dest.setText(Integer.toString(simulator.multiplier.stations[1].destTag));
@@ -2215,7 +2215,7 @@ public class TomasuloGUIView extends FrameView {
             Mult2Tag2.setText(Integer.toString(simulator.multiplier.stations[1].tag2));
             Mult2Val1.setText(Integer.toString(simulator.multiplier.stations[1].data1));
             Mult2Val2.setText(Integer.toString(simulator.multiplier.stations[1].data2));
-            Mult2Busy.setSelected(true);
+            Mult2Busy.setSelected(simulator.multiplier.stations[1].stat == ReservationStation.Status.PROCESSING);
         }
         else {
             Mult2Dest.setText("");
@@ -2223,7 +2223,7 @@ public class TomasuloGUIView extends FrameView {
             Mult2Tag2.setText("");
             Mult2Val1.setText("");
             Mult2Val2.setText("");
-            Mult2Busy.setSelected(false);
+            Mult2Busy.setSelected(simulator.multiplier.stations[1].stat == ReservationStation.Status.PROCESSING);
         }
 
 
@@ -2272,7 +2272,7 @@ public class TomasuloGUIView extends FrameView {
             Branch1Tag2.setText(Integer.toString(simulator.branchUnit.stations[0].tag2));
             Branch1Val1.setText(Integer.toString(simulator.branchUnit.stations[0].data1));
             Branch1Val2.setText(Integer.toString(simulator.branchUnit.stations[0].data2));
-            Branch1Busy.setSelected(true);
+            Branch1Busy.setSelected(simulator.branchUnit.stations[0].stat == ReservationStation.Status.PROCESSING);
         }
         else {
             Branch1Dest.setText("");
@@ -2280,7 +2280,7 @@ public class TomasuloGUIView extends FrameView {
             Branch1Tag2.setText("");
             Branch1Val1.setText("");
             Branch1Val2.setText("");
-            Branch1Busy.setSelected(false);
+            Branch1Busy.setSelected(simulator.branchUnit.stations[0].stat == ReservationStation.Status.PROCESSING);
         }
         if (simulator.branchUnit.stations[1] != null) {
             Branch2Dest.setText(Integer.toString(simulator.branchUnit.stations[1].destTag));
@@ -2288,7 +2288,7 @@ public class TomasuloGUIView extends FrameView {
             Branch2Tag2.setText(Integer.toString(simulator.branchUnit.stations[1].tag2));
             Branch2Val1.setText(Integer.toString(simulator.branchUnit.stations[1].data1));
             Branch2Val2.setText(Integer.toString(simulator.branchUnit.stations[1].data2));
-            Branch2Busy.setSelected(true);
+            Branch2Busy.setSelected(simulator.branchUnit.stations[1].stat == ReservationStation.Status.PROCESSING);
         }
         else {
             Branch2Dest.setText("");
@@ -2296,7 +2296,7 @@ public class TomasuloGUIView extends FrameView {
             Branch2Tag2.setText("");
             Branch2Val1.setText("");
             Branch2Val2.setText("");
-            Branch2Busy.setSelected(false);
+            Branch2Busy.setSelected(simulator.branchUnit.stations[1].stat == ReservationStation.Status.PROCESSING);
         }
 
         // CDB

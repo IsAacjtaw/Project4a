@@ -38,9 +38,15 @@ public abstract class FunctionalUnit {
         }
         else if (stations[0].stat == ReservationStation.Status.SITTING) {
             // initiate computation
+            if (stations[0].isReady()) {
+                stations[0].stat = ReservationStation.Status.PROCESSING;
+            }
         }
         else if (stations[1].stat == ReservationStation.Status.SITTING) {
             // initiate computation
+            if (stations[1].isReady()) {
+                stations[1].stat = ReservationStation.Status.PROCESSING;
+            }
         }
         
     }

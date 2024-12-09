@@ -82,13 +82,11 @@ public class ReservationStation {
             tag1 = inst.regSrc1Tag;
             tag2 = inst.regSrc2Tag;
             data1 = inst.regSrc1Value;
-            data2 = inst.regSrc2Value;
+            data2 = inst.immediate;
             data1Valid = inst.regSrc1Valid;
             data2Valid = true;
             stat = Status.SITTING;
         }
-        
-        //Not immediate instructions 
         if(inst.opcode == INST_TYPE.ADD || inst.opcode == INST_TYPE.AND || 
                 inst.opcode == INST_TYPE.DIV || inst.opcode == INST_TYPE.MUL ||
                 inst.opcode == INST_TYPE.OR || inst.opcode == INST_TYPE.SLL ||

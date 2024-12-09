@@ -91,8 +91,10 @@ public class ReorderBuffer {
         // could be destination reg
         // could be store address source
         
-        regs.setReg(cdb.getDataTag(), cdb.getDataValue());
-        //complete = true;
+        if (cdb.getDataValid()) {
+            regs.setReg(cdb.getDataTag(), cdb.getDataValue());
+            this.getEntryByTag(cdb.getDataTag()).complete = true;
+        }
     }
 
     public void updateInstForIssue(IssuedInst inst) {
