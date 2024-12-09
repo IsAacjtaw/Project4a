@@ -77,6 +77,7 @@ public class ReservationStation {
         // Set reservation station correctly
        
         //Check for type if immediate run this 
+        function = inst.opcode;
         if(inst.opcode == INST_TYPE.ADDI || inst.opcode == INST_TYPE.ANDI ||
                 inst.opcode == INST_TYPE.ORI || inst.opcode == INST_TYPE.XORI){
             tag1 = inst.regSrc1Tag;

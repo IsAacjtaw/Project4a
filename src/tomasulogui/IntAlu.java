@@ -19,7 +19,7 @@ public class IntAlu extends FunctionalUnit {
     public int calculateResult(int station) {
         // Is it an ALU or an adder? Who can say. 
         //set data one and two then run the instruction type on them
-        INST_TYPE instructype = stations[station].function;
+        INST_TYPE instructype = stations[station].getFunction();
         int data1 = stations[station].data1;
         int data2 = stations[station].data2;
         int result = -999;
@@ -72,7 +72,7 @@ public class IntAlu extends FunctionalUnit {
           //  case "SW":
             //  return regA + immed;    
             default:
-                System.out.println("You should be here INTALU default");
+                System.out.println("You shouldn't be here INTALU default");
                 
         }
         return result;
