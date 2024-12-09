@@ -66,7 +66,12 @@ public class ReorderBuffer {
             simulator.memory.setIntDataAtAddr(retiree.storeAddr + retiree.storeOffset, retiree.writeValue);
         }
         else {                                                        // Case 1
-            regs.regs[retiree.writeReg] = retiree.writeValue;
+            if (retiree.isComplete()) {
+                regs.regs[retiree.writeReg] = retiree.writeValue;
+            }
+            else {
+                shouldAdvance = false;
+            }
         }
             
         // TODO - this is where you look at the type of instruction and
@@ -85,8 +90,9 @@ public class ReorderBuffer {
         // check entire CDB for someone waiting on this data
         // could be destination reg
         // could be store address source
-
-        // TODO body of method
+        
+        regs.setReg(cdb.getDataTag(), cdb.getDataValue());
+        //complete = true;
     }
 
     public void updateInstForIssue(IssuedInst inst) {

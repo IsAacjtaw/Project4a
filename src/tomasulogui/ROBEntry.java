@@ -63,7 +63,6 @@ public class ROBEntry {
     }
 
     public void copyInstData(IssuedInst inst, int rearQ) {
-        instPC = inst.getPC();
         inst.setRegDestTag(rearQ);
 
         // TODO - This is a long and complicated method, probably the most complex
@@ -97,6 +96,7 @@ public class ROBEntry {
         System.out.println("immediate val: " + inst.immediate);
         
         // #2 Update the reorder buffer entry
+        instPC = inst.getPC();
         predictTaken = inst.branchPrediction;
         writeReg = inst.regDest;
         opcode = inst.getOpcode();
