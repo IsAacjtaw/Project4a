@@ -82,7 +82,7 @@ public class ReservationStation {
             tag1 = inst.regSrc1Tag;
             tag2 = inst.regSrc2Tag;
             data1 = inst.regSrc1;
-            data2 = inst.regSrc1Value;
+            data2 = inst.regSrc2Value;
             data1Valid = inst.regSrc1Valid;
             data2Valid = true;
             stat = Status.SITTING;
@@ -97,7 +97,7 @@ public class ReservationStation {
             data1 = inst.regSrc1Value;
             data2 = inst.regSrc2Value;
             data1Valid = inst.regSrc1Valid;
-            data2Valid = true;
+            data2Valid = inst.regSrc2Valid;
             stat = Status.SITTING;
         }
         
