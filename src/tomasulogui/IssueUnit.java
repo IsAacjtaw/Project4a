@@ -29,7 +29,7 @@ public class IssueUnit {
         reservation1Free = false;
         
         //Check if it is a load or a store and set type
-        if(opcode == 0){
+        if (opcode == 0){
             type = EXEC_TYPE.LOAD;
         }
         else if(opcode == 1){
@@ -95,10 +95,13 @@ public class IssueUnit {
         // to issue, we make an IssuedInst, filling in what we know
         // We check the BTB, and put prediction if branch, updating PC
         // if pred taken, incr PC otherwise
-        if((ROBFree && reservation0Free) || (ROBFree && reservation1Free)){
+        if((ROBFree && reservation0Free) || (ROBFree && reservation1Free) || type == EXEC_TYPE.LOAD){
             issuee = issuee.createIssuedInst(instruc);
+            issuee.setPC(simulator.getPC());
         }
-        // I'm commenting out the following line to make stuff work.
+        if (type == EXEC_TYPE.LOAD) {
+            simulator.loader.acceptIssue(issuee);
+        }
         if(type == EXEC_TYPE.BRANCH){
             simulator.btb.predictBranch(issuee);
         }
@@ -157,9 +160,6 @@ public class IssueUnit {
             else if(reservation1Free){
                 simulator.branchUnit.stations[1].loadInst(issuee);
             }
-        }
-        else if(type == EXEC_TYPE.LOAD){
-            simulator.loader.acceptIssue(issuee);
         }
         else{
             
