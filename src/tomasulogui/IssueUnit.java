@@ -91,13 +91,16 @@ public class IssueUnit {
         // 2. issuing to reservation station, if no structural hazard
         // to issue, we make an IssuedInst, filling in what we know
         // We check the BTB, and put prediction if branch, updating PC
-        //     if pred taken, incr PC otherwise
+        // if pred taken, incr PC otherwise
         if((ROBFree && reservation0Free) || (ROBFree && reservation1Free)){
             issuee = issuee.createIssuedInst(instruc);
         }
         // I'm commenting out the following line to make stuff work.
         if(type == EXEC_TYPE.BRANCH){
             simulator.btb.predictBranch(issuee);
+        }
+        else {
+            simulator.pc.incrPC();
         }
         // We then send this to the ROB, which fills in the data fields
         simulator.reorder.updateInstForIssue(issuee);
