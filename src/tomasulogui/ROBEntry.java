@@ -127,6 +127,11 @@ public class ROBEntry {
         opcode = inst.getOpcode();
         //writeValue = rob.regs.getReg(inst.regDest);
         
+        if (opcode == IssuedInst.INST_TYPE.JAL || opcode == IssuedInst.INST_TYPE.JALR) {
+            writeValue = inst.pc + 4;
+            complete = true;
+        }
+        
         // set mispredict here
         if (inst.determineIfBranch()) {
             // What do I do?
