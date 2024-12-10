@@ -1,5 +1,7 @@
 package tomasulogui;
 
+import tomasulogui.IssuedInst.INST_TYPE;
+
 public class ReorderBuffer {
 
     public static final int size = 30;
@@ -96,6 +98,19 @@ public class ReorderBuffer {
             if (thisEntry != null) {
                 thisEntry.writeValue = cdb.getDataValue();
                 thisEntry.complete = true;
+                if (thisEntry.opcode == INST_TYPE.BNE || thisEntry.opcode == INST_TYPE.BLTZ || 
+                        thisEntry.opcode == INST_TYPE.BLEZ || thisEntry.opcode == INST_TYPE.BLTZ ||
+                        thisEntry.opcode == INST_TYPE.BGEZ || thisEntry.opcode == INST_TYPE.BGTZ) {
+                    if (thisEntry.writeValue == 1 && thisEntry.predictTaken) {
+                        thisEntry.mispredicted = false;
+                    }
+                    else if (thisEntry.writeValue == 0 && !thisEntry.predictTaken) {
+                        thisEntry.mispredicted = false;
+                    }
+                    else {
+                        thisEntry.mispredicted = true;
+                    }
+                }
             }
         }
     }
