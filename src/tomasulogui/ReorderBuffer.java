@@ -58,9 +58,13 @@ public class ReorderBuffer {
         boolean shouldAdvance = true;
 
         if (retiree.mispredicted) {                                   // Case 2
+            System.out.println("Branch mispredicted.");
             simulator.squashAllInsts();
             shouldAdvance = false;
             frontQ = (frontQ + 1) % size;
+        }
+        else if (determineIfBranch(retiree.opcode)) {
+            
         }
         else if (retiree.opcode.equals(IssuedInst.INST_TYPE.STORE)) { // Case 3
             System.out.println("bruh");
@@ -98,9 +102,7 @@ public class ReorderBuffer {
             if (thisEntry != null) {
                 thisEntry.writeValue = cdb.getDataValue();
                 thisEntry.complete = true;
-                if (thisEntry.opcode == INST_TYPE.BNE || thisEntry.opcode == INST_TYPE.BEQ || 
-                        thisEntry.opcode == INST_TYPE.BLEZ || thisEntry.opcode == INST_TYPE.BLTZ ||
-                        thisEntry.opcode == INST_TYPE.BGEZ || thisEntry.opcode == INST_TYPE.BGTZ) {
+                if (determineIfBranch(thisEntry.opcode)) {
                     if (thisEntry.writeValue == 1 && thisEntry.predictTaken) {
                         thisEntry.mispredicted = false;
                     }
@@ -133,6 +135,12 @@ public class ReorderBuffer {
         newEntry.copyInstData(inst, rearQ);
 
         rearQ = (rearQ + 1) % size;
+    }
+    
+    public boolean determineIfBranch(IssuedInst.INST_TYPE opcode) {
+        return (opcode == INST_TYPE.BNE || opcode == INST_TYPE.BEQ
+                || opcode == INST_TYPE.BLEZ || opcode == INST_TYPE.BLTZ
+                || opcode == INST_TYPE.BGEZ || opcode == INST_TYPE.BGTZ);
     }
 
     public int getTagForReg(int regNum) {
