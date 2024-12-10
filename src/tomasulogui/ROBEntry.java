@@ -63,19 +63,16 @@ public class ROBEntry {
     }
 
     public void copyInstData(IssuedInst inst, int rearQ) {
-        inst.setRegDestTag(rearQ);
-
         // TODO - This is a long and complicated method, probably the most complex
         // of the project.  It does 2 things:
-        // 1. update the instruction, as shown in 2nd line of code above
-        // 2. update the fields of the ROBEntry, as shown in the 1st line of code above
+        // 1. update the instruction
+        // 2. update the fields of the ROBEntry
         
         // #1 Update the issued instruction
+        inst.setRegDestTag(rearQ);
         if (inst.regDestUsed) {
             int regDest = inst.getRegDest();
             rob.setTagForReg(regDest, rearQ);
-            inst.setRegDestTag(rob.getTagForReg(regDest));
-            //System.out.println(rob.getTagForReg(regDest));
         }
         if (inst.regSrc1Used) {
             // Special case for R0
@@ -83,7 +80,9 @@ public class ROBEntry {
                 inst.setRegSrc1Value(0);
                 inst.setRegSrc1Valid();
             }
-            //System.out.println(rob.getTagForReg(inst.getRegSrc1()));
+            else {
+                inst.setRegSrc1Tag(rob.regs.getSlotForReg(inst.getRegSrc1()));
+            }
         }
         if (inst.regSrc2Used) {
             // Special case for R0
@@ -91,7 +90,9 @@ public class ROBEntry {
                 inst.setRegSrc2Value(0);
                 inst.setRegSrc2Valid();
             }
-            //System.out.println(rob.getTagForReg(inst.getRegSrc2()));
+            else {
+                inst.setRegSrc2Tag(rob.regs.getSlotForReg(inst.getRegSrc2()));
+            }
         }
         
         // #2 Update the reorder buffer entry

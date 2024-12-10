@@ -91,8 +91,11 @@ public class ReorderBuffer {
         // could be store address source
         
         if (cdb.getDataValid()) {
-            this.getEntryByTag(cdb.getDataTag()).writeValue = cdb.getDataValue();
-            this.getEntryByTag(cdb.getDataTag()).complete = true;
+            ROBEntry thisEntry = this.getEntryByTag(cdb.getDataTag());
+            if (thisEntry != null) {
+                thisEntry.writeValue = cdb.getDataValue();
+                thisEntry.complete = true;
+            }
         }
     }
 

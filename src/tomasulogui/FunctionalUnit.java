@@ -44,7 +44,7 @@ public abstract class FunctionalUnit {
             stations[stationSent] = new ReservationStation(simulator);
             stationSent = -1;
         }
-        else if (stations[0].stat == ReservationStation.Status.PROCESSING) {
+        if (stations[0].stat == ReservationStation.Status.PROCESSING) {
             if (currExCycle >= getExecCycles()) {
                 // station is done computing
                 if (sendToCDB(stations[0].destTag, calculateResult(0))) {
@@ -57,7 +57,7 @@ public abstract class FunctionalUnit {
             currExCycle++;
             if (currExCycle >= getExecCycles()) {
                 // station is done computing
-                if (sendToCDB(stations[1].destTag, calculateResult(0))) {
+                if (sendToCDB(stations[1].destTag, calculateResult(1))) {
                     stationSent = 1;
                 }
             }
