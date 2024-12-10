@@ -77,10 +77,17 @@ public class ROBEntry {
                 inst.setRegSrc1Value(0);
                 inst.setRegSrc1Valid();
             }
+            // Case: register is not in reorder buffer
             else if (rob.getTagForReg(regSource) == -1) {
                 inst.setRegSrc1Value(rob.getDataForReg(regSource));
                 inst.setRegSrc1Valid();
             }
+            // Case: register is in reorder buffer and valid
+            else if (rob.buff[rob.getTagForReg(regSource)].isComplete()) {
+                inst.setRegSrc1Value(rob.buff[rob.getTagForReg(regSource)].getWriteValue());
+                inst.setRegSrc1Valid();
+            }
+            // Case: register is in reorder buffer but invalid
             else {
                 inst.setRegSrc1Tag(rob.getTagForReg(inst.getRegSrc1()));
             }
@@ -92,10 +99,17 @@ public class ROBEntry {
                 inst.setRegSrc2Value(0);
                 inst.setRegSrc2Valid();
             }
+            // Case: register is not in reorder buffer
             else if (rob.getTagForReg(regSource) == -1) {
                 inst.setRegSrc2Value(rob.getDataForReg(regSource));
                 inst.setRegSrc2Valid();
             }
+            // Case: register is in reorder buffer and valid
+            else if (rob.buff[rob.getTagForReg(regSource)].isComplete()) {
+                inst.setRegSrc2Value(rob.buff[rob.getTagForReg(regSource)].getWriteValue());
+                inst.setRegSrc2Valid();
+            }
+            // Case: register is in reorder buffer but invalid
             else {
                 inst.setRegSrc2Tag(rob.getTagForReg(inst.getRegSrc2()));
             }
