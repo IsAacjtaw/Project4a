@@ -45,7 +45,7 @@ public class LoadBuffer {
         requestWriteback = false;
     }
 
-    public void execCycle(CDB cdb) {
+    public void execCycle(CDB cdb) {        
         // first check if a reservation station was freed by writeback
         if (canWriteback) {
             buff[writebackEntry] = null;
@@ -88,8 +88,14 @@ public class LoadBuffer {
                 }
             }
         }
-
         canWriteback = false;
+
+        if (writebackEntry != -1) {
+            buff[writebackEntry].clockCycles++;
+            if (buff[writebackEntry].clockCycles > 2) {
+                setCanWriteback();
+            }
+        }
     }
 
     public boolean isReservationStationAvail() {

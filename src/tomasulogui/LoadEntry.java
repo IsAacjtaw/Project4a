@@ -7,6 +7,7 @@ public class LoadEntry {
     boolean addressValid;
     int addrTag;
     int destTag;
+    int clockCycles = 0;
 
     public LoadEntry() {
     }
