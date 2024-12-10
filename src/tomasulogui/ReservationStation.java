@@ -8,8 +8,8 @@ public class ReservationStation {
     public enum Status {
         FREE, PROCESSING, SITTING
     };
-    int tag1;
-    int tag2;
+    int tag1 = -1;
+    int tag2 = -1;
     int data1;
     int data2;
     boolean data1Valid = false;
@@ -103,6 +103,26 @@ public class ReservationStation {
             data2Valid = inst.regSrc2Valid;
             destTag = inst.getRegDestTag();
             stat = Status.SITTING;
+        }
+        if(inst.opcode == INST_TYPE.BNE || inst.opcode == INST_TYPE.BLTZ ||
+            inst.opcode == INST_TYPE.BLEZ || inst.opcode == INST_TYPE.BLTZ ||
+            inst.opcode == INST_TYPE.BGEZ || inst.opcode == INST_TYPE.BGTZ 
+            /*inst.opcode == INST_TYPE.J || inst.opcode == INST_TYPE.JAL||
+            inst.opcode == INST_TYPE.JALR */){
+            tag1 = inst.regSrc1Tag;
+            tag2 = inst.regSrc2Tag;
+            data1 = inst.regSrc1Value;
+            data2 = inst.regSrc2Value;
+            data1Valid = inst.regSrc1Valid;
+            data2Valid = inst.regSrc2Valid;
+            destTag = inst.getRegDestTag();
+            stat = Status.SITTING; 
+            
+            
+            //addressTag = ;
+          //  addressValid = ;
+          //  address = ;
+            predictedTaken = inst.getBranchPrediction();
         }
         
     }

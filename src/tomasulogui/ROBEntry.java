@@ -125,7 +125,7 @@ public class ROBEntry {
         predictTaken = inst.branchPrediction;
         writeReg = inst.regDest;
         opcode = inst.getOpcode();
-        writeValue = rob.regs.getReg(inst.regDest);
+     //   writeValue = rob.regs.getReg(inst.regDest);
         
         // set mispredict here
     }

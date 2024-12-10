@@ -25,6 +25,7 @@ public abstract class FunctionalUnit {
 
     public void execCycle(CDB cdb) {
         //todo - start executing, ask for CDB, etc.
+        
         if (stations[0].stat == ReservationStation.Status.SITTING && stations[0].isReady()) {
             // initiate computation
             stations[0].stat = ReservationStation.Status.PROCESSING;
@@ -59,7 +60,8 @@ public abstract class FunctionalUnit {
             currExCycle++;
         }
         
-        
+        stations[0].snoop(cdb);
+        stations[1].snoop(cdb);
     }
 
     public void acceptIssue(IssuedInst inst) {
