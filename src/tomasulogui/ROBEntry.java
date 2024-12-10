@@ -69,30 +69,41 @@ public class ROBEntry {
         // 2. update the fields of the ROBEntry
         
         // #1 Update the issued instruction
-        inst.setRegDestTag(rearQ);
-        if (inst.regDestUsed) {
-            int regDest = inst.getRegDest();
-            rob.setTagForReg(regDest, rearQ);
-        }
+        rob.regs.printRegFile();
         if (inst.regSrc1Used) {
             // Special case for R0
-            if (inst.getRegSrc1() == 0) {
+            int regSource = inst.getRegSrc1();
+            if (regSource == 0) {
                 inst.setRegSrc1Value(0);
                 inst.setRegSrc1Valid();
             }
+            else if (rob.getTagForReg(regSource) == -1) {
+                inst.setRegSrc1Value(rob.getDataForReg(regSource));
+                inst.setRegSrc1Valid();
+            }
             else {
-                inst.setRegSrc1Tag(rob.regs.getSlotForReg(inst.getRegSrc1()));
+                inst.setRegSrc1Tag(rob.getTagForReg(inst.getRegSrc1()));
             }
         }
         if (inst.regSrc2Used) {
             // Special case for R0
+            int regSource = inst.getRegSrc2();
             if (inst.getRegSrc2() == 0) {
                 inst.setRegSrc2Value(0);
                 inst.setRegSrc2Valid();
             }
-            else {
-                inst.setRegSrc2Tag(rob.regs.getSlotForReg(inst.getRegSrc2()));
+            else if (rob.getTagForReg(regSource) == -1) {
+                inst.setRegSrc2Value(rob.getDataForReg(regSource));
+                inst.setRegSrc2Valid();
             }
+            else {
+                inst.setRegSrc2Tag(rob.getTagForReg(inst.getRegSrc2()));
+            }
+        }
+        inst.setRegDestTag(rearQ);
+        if (inst.regDestUsed) {
+            int regDest = inst.getRegDest();
+            rob.setTagForReg(regDest, rearQ);
         }
         
         // #2 Update the reorder buffer entry
