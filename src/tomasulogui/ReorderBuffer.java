@@ -67,6 +67,7 @@ public class ReorderBuffer {
         else {                                                        // Case 1
             if (retiree.isComplete()) {
                 regs.regs[retiree.writeReg] = retiree.writeValue;
+                regs.setSlotForReg(retiree.getWriteReg(), -1);
             }
             else {
                 shouldAdvance = false;

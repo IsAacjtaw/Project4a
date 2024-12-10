@@ -25,20 +25,15 @@ public abstract class FunctionalUnit {
 
     public void execCycle(CDB cdb) {
         //todo - start executing, ask for CDB, etc.
-        if (stations[0].stat == ReservationStation.Status.SITTING) {
+        if (stations[0].stat == ReservationStation.Status.SITTING && stations[0].isReady()) {
             // initiate computation
-            if (stations[0].isReady()) {
-                stations[0].stat = ReservationStation.Status.PROCESSING;
-                currExCycle++;
-                
-            }
+            stations[0].stat = ReservationStation.Status.PROCESSING;
+            currExCycle++;                
         }
-        else if (stations[1].stat == ReservationStation.Status.SITTING) {
+        else if (stations[1].stat == ReservationStation.Status.SITTING && stations[1].isReady()) {
             // initiate computation
-            if (stations[1].isReady()) {
-                stations[1].stat = ReservationStation.Status.PROCESSING;
-                currExCycle++;
-            }
+            stations[1].stat = ReservationStation.Status.PROCESSING;
+            currExCycle++;
         }
         if (stationSent > -1) {
             stations[stationSent] = new ReservationStation(simulator);
