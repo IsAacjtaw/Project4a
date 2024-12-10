@@ -79,26 +79,29 @@ public class ReservationStation {
         //Check for type if immediate run this 
         function = inst.opcode;
         if(inst.opcode == INST_TYPE.ADDI || inst.opcode == INST_TYPE.ANDI ||
-                inst.opcode == INST_TYPE.ORI || inst.opcode == INST_TYPE.XORI){
+                inst.opcode == INST_TYPE.ORI || inst.opcode == INST_TYPE.XORI ||
+                inst.opcode == INST_TYPE.SLL || inst.opcode == INST_TYPE.SRA || 
+                inst.opcode == INST_TYPE.SRL ){
             tag1 = inst.regSrc1Tag;
             tag2 = inst.regSrc2Tag;
             data1 = inst.regSrc1Value;
             data2 = inst.immediate;
             data1Valid = inst.regSrc1Valid;
             data2Valid = true;
+            destTag = inst.getRegDestTag();
             stat = Status.SITTING;
         }
         if(inst.opcode == INST_TYPE.ADD || inst.opcode == INST_TYPE.AND || 
                 inst.opcode == INST_TYPE.DIV || inst.opcode == INST_TYPE.MUL ||
-                inst.opcode == INST_TYPE.OR || inst.opcode == INST_TYPE.SLL ||
-                inst.opcode == INST_TYPE.SRA || inst.opcode == INST_TYPE.SRL ||
-                inst.opcode == INST_TYPE.SUB || inst.opcode == INST_TYPE.XOR){
+                inst.opcode == INST_TYPE.OR  ||inst.opcode == INST_TYPE.SUB ||
+                inst.opcode == INST_TYPE.XOR){
             tag1 = inst.regSrc1Tag;
             tag2 = inst.regSrc2Tag;
             data1 = inst.regSrc1Value;
             data2 = inst.regSrc2Value;
             data1Valid = inst.regSrc1Valid;
             data2Valid = inst.regSrc2Valid;
+            destTag = inst.getRegDestTag();
             stat = Status.SITTING;
         }
         
