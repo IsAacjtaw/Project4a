@@ -98,7 +98,7 @@ public class ReorderBuffer {
             if (thisEntry != null) {
                 thisEntry.writeValue = cdb.getDataValue();
                 thisEntry.complete = true;
-                if (thisEntry.opcode == INST_TYPE.BNE || thisEntry.opcode == INST_TYPE.BLTZ || 
+                if (thisEntry.opcode == INST_TYPE.BNE || thisEntry.opcode == INST_TYPE.BEQ || 
                         thisEntry.opcode == INST_TYPE.BLEZ || thisEntry.opcode == INST_TYPE.BLTZ ||
                         thisEntry.opcode == INST_TYPE.BGEZ || thisEntry.opcode == INST_TYPE.BGTZ) {
                     if (thisEntry.writeValue == 1 && thisEntry.predictTaken) {

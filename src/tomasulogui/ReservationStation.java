@@ -1,6 +1,7 @@
 package tomasulogui;
 
 import tomasulogui.IssuedInst.INST_TYPE;
+import static tomasulogui.IssuedInst.INST_TYPE.BEQ;
 
 public class ReservationStation {
 
@@ -104,11 +105,11 @@ public class ReservationStation {
             destTag = inst.getRegDestTag();
             stat = Status.SITTING;
         }
-        if(inst.opcode == INST_TYPE.BNE || inst.opcode == INST_TYPE.BLTZ ||
+        if(inst.opcode == INST_TYPE.BNE || inst.opcode == INST_TYPE.BEQ ||
             inst.opcode == INST_TYPE.BLEZ || inst.opcode == INST_TYPE.BLTZ ||
-            inst.opcode == INST_TYPE.BGEZ || inst.opcode == INST_TYPE.BGTZ 
-            /*inst.opcode == INST_TYPE.J || inst.opcode == INST_TYPE.JAL||
-            inst.opcode == INST_TYPE.JALR */){
+            inst.opcode == INST_TYPE.BGEZ || inst.opcode == INST_TYPE.BGTZ ||
+            inst.opcode == INST_TYPE.J || inst.opcode == INST_TYPE.JAL||
+            inst.opcode == INST_TYPE.JALR ){
             tag1 = inst.regSrc1Tag;
             tag2 = inst.regSrc2Tag;
             data1 = inst.regSrc1Value;
