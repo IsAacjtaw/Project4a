@@ -107,15 +107,15 @@ public class ReservationStation {
         }
         if(inst.opcode == INST_TYPE.BNE || inst.opcode == INST_TYPE.BEQ ||
             inst.opcode == INST_TYPE.BLEZ || inst.opcode == INST_TYPE.BLTZ ||
-            inst.opcode == INST_TYPE.BGEZ || inst.opcode == INST_TYPE.BGTZ ||
-            inst.opcode == INST_TYPE.J || inst.opcode == INST_TYPE.JAL||
-            inst.opcode == INST_TYPE.JALR ){
+            inst.opcode == INST_TYPE.BGEZ || inst.opcode == INST_TYPE.BGTZ ){
             tag1 = inst.regSrc1Tag;
             tag2 = inst.regSrc2Tag;
             data1 = inst.regSrc1Value;
             data2 = inst.regSrc2Value;
             data1Valid = inst.regSrc1Valid;
+            System.out.println("reg source 1 val" +inst.regSrc1Valid);
             data2Valid = inst.regSrc2Valid;
+            System.out.println("reg source 2 val" +inst.regSrc2Valid);
             destTag = inst.getRegDestTag();
             stat = Status.SITTING; 
             
@@ -125,6 +125,13 @@ public class ReservationStation {
           //  address = ;
             predictedTaken = inst.getBranchPrediction();
         }
-        
+        if (inst.opcode == INST_TYPE.J || inst.opcode == INST_TYPE.JAL ||
+            inst.opcode == INST_TYPE.JALR){
+            destTag = inst.getRegDestTag();
+            data1Valid = true;
+            data2Valid = true;
+            stat = Status.SITTING; 
+            predictedTaken = inst.getBranchPrediction();
+        }   
     }
 }

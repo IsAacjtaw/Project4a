@@ -3,7 +3,7 @@ package tomasulogui;
 public class IssueUnit {
 
     private enum EXEC_TYPE {
-        NONE, LOAD, ALU, MULT, DIV, BRANCH
+        NONE, LOAD, ALU, MULT, DIV, BRANCH, STORE
     };
 
     PipelineSimulator simulator;
@@ -32,7 +32,8 @@ public class IssueUnit {
         if (opcode == 0) {
             type = EXEC_TYPE.LOAD;
         } else if (opcode == 1) {
-            type = EXEC_TYPE.NONE;
+            type = EXEC_TYPE.STORE;
+            //System.out.println("Nonetype");
         } //Check if the instruction is a branch including jumps, 
         //set type and check reservation station
         else if ((opcode <= 43) && (opcode >= 30)) {
@@ -86,7 +87,8 @@ public class IssueUnit {
         // to issue, we make an IssuedInst, filling in what we know
         // We check the BTB, and put prediction if branch, updating PC
         // if pred taken, incr PC otherwise
-        if ((ROBFree && reservation0Free) || (ROBFree && reservation1Free) || type == EXEC_TYPE.LOAD) {
+        if ((ROBFree && reservation0Free) || (ROBFree && reservation1Free) || 
+                type == EXEC_TYPE.LOAD || type == EXEC_TYPE.STORE) {
             issuee = issuee.createIssuedInst(instruc);
             issuee.setPC(simulator.getPC());
             simulator.pc.incrPC();
