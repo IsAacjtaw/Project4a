@@ -1,6 +1,8 @@
 package tomasulogui;
 
 import static tomasulogui.IssuedInst.INST_TYPE.BEQ;
+import static tomasulogui.IssuedInst.INST_TYPE.BGEZ;
+import static tomasulogui.IssuedInst.INST_TYPE.BGTZ;
 import static tomasulogui.IssuedInst.INST_TYPE.BLEZ;
 import static tomasulogui.IssuedInst.INST_TYPE.BLTZ;
 import static tomasulogui.IssuedInst.INST_TYPE.BNE;
@@ -54,7 +56,7 @@ public class BranchUnit extends FunctionalUnit {
             default:
                 System.out.println("Branch unit default case no branch type?"
                         + " shouldn't be here I think");
-                return -3;
+                return -1;
         }
         return 0;
     }
@@ -64,6 +66,9 @@ public class BranchUnit extends FunctionalUnit {
     }
     
     public boolean sendToCDB(int resultTag, int resultValue) {
+        if (resultValue == -1) {
+            return true;
+        }
         boolean sendable = !cdbBranch.getDataValid();
         if (sendable) {
             cdbBranch.setDataTag(resultTag);
