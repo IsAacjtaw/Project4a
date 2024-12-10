@@ -403,6 +403,12 @@ public class PipelineSimulator {
             branchUnit.cdbBranch.setDataValid(false);
             cdb.setDataValid(true);
         }
+        else if(loader.canWriteback){
+            cdb.dataTag = loader.writeTag;
+            cdb.dataValue = loader.writeData;
+            cdb.setDataValid(true);
+        }
+        
 
         reorder.readCDB(cdb);
     }
