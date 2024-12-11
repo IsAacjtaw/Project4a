@@ -90,8 +90,10 @@ public class IssueUnit {
         if ((ROBFree && reservation0Free) || (ROBFree && reservation1Free) || 
                 type == EXEC_TYPE.LOAD) {
             issuee = issuee.createIssuedInst(instruc);
+
             issuee.setPC(simulator.getPC());
-            simulator.pc.incrPC();
+            simulator.btb.predictBranch(issuee);
+          //  simulator.pc.incrPC();
             // We then send this to the ROB, which fills in the data fields
             simulator.reorder.updateInstForIssue(issuee);
         }
@@ -105,10 +107,7 @@ public class IssueUnit {
                 simulator.reorder.updateInstForIssue(issuee);
             }
         }
-        if (type == EXEC_TYPE.BRANCH) {
-            simulator.btb.predictBranch(issuee);
-            
-        }
+        
 
         // We then check the CDB, and see if it is broadcasting data we need,
         //    so that we can forward during issue

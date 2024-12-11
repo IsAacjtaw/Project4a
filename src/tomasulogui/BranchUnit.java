@@ -50,7 +50,7 @@ public class BranchUnit extends FunctionalUnit {
             case JAL:
             default:
                 System.out.println("Branch unit default case no branch type?"
-                        + " shouldn't be here I think");
+                        + " shouldn't be here I think " + instructype);
                 return -1;
         }
         return 0;
