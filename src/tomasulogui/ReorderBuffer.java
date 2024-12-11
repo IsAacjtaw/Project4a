@@ -59,15 +59,15 @@ public class ReorderBuffer {
 
         if (retiree.mispredicted) {                                   // Case 2
             System.out.println("Branch mispredicted.");
+            if (retiree.opcode == INST_TYPE.JR || retiree.opcode == INST_TYPE.JALR) {
+                simulator.setPC(retiree.jumpPC);
+            }
             simulator.squashAllInsts();
             shouldAdvance = false;
             frontQ = (frontQ + 1) % size;
         }
-        else if (determineIfBranch(retiree.opcode) && retiree.opcode != INST_TYPE.JAL && retiree.opcode != INST_TYPE.JALR) {
-            // This code is duplicated in the else statement below. 
-            if (retiree.opcode == INST_TYPE.JR) {
-                simulator.setPC(retiree.jumpPC);
-            }
+        else if (determineIfBranch(retiree.opcode) || retiree.opcode == INST_TYPE.JR || retiree.opcode == INST_TYPE.J) {
+            
         }
         else if (retiree.opcode.equals(IssuedInst.INST_TYPE.STORE)) { // Case 3
             System.out.println("bruh, we gotta store " + retiree.writeValue + " at " + regs.getReg(retiree.storeAddr) + " + " + retiree.storeOffset);
@@ -120,6 +120,17 @@ public class ReorderBuffer {
                     }
                 }
             }
+        }
+        // Send jumpPC from branch unit to reorder buffer entry
+        ReservationStation thisStation = simulator.branchUnit.stations[0];
+        if (thisStation.data1Valid && (thisStation.function == IssuedInst.INST_TYPE.JR || thisStation.function == IssuedInst.INST_TYPE.JALR)) {
+            buff[thisStation.destTag].jumpPC = thisStation.data1;
+            buff[thisStation.destTag].complete = true;
+        }
+        thisStation = simulator.branchUnit.stations[1];
+        if (thisStation.data1Valid && (thisStation.function == IssuedInst.INST_TYPE.JR || thisStation.function == IssuedInst.INST_TYPE.JALR)) {
+            buff[thisStation.destTag].jumpPC = thisStation.data1;
+            buff[thisStation.destTag].complete = true;
         }
     }
 
