@@ -139,6 +139,9 @@ public class ROBEntry {
             storeOffset = inst.immediate;
             complete = true;
         }
+        else if (opcode == IssuedInst.INST_TYPE.NOP) {
+            complete = true;
+        }
         
         // set mispredict here
         if (inst.determineIfBranch()) {

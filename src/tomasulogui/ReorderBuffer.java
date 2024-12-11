@@ -70,6 +70,9 @@ public class ReorderBuffer {
             System.out.println("bruh, we gotta store " + retiree.writeValue + " at " + regs.getReg(retiree.storeAddr) + " + " + retiree.storeOffset);
             simulator.memory.setIntDataAtAddr(regs.getReg(retiree.storeAddr) + retiree.storeOffset, retiree.writeValue);
         }
+        else if (retiree.opcode.equals(IssuedInst.INST_TYPE.NOP)) {
+            System.out.println("This is a NOP.");
+        }
         else {                                                        // Case 1
             if (retiree.isComplete()) {
                 regs.regs[retiree.writeReg] = retiree.writeValue;
