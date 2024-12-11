@@ -14,7 +14,8 @@ public abstract class FunctionalUnit {
     }
 
     public void squashAll() {
-        // todo fill in
+        stations[0] = new ReservationStation(simulator);
+        stations[1] = new ReservationStation(simulator);      
     }
 
     public abstract int calculateResult(int station);
