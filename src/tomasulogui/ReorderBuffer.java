@@ -18,6 +18,13 @@ public class ReorderBuffer {
         simulator = sim;
         regs = registers;
     }
+    
+    public void squashAll() {
+        for (int i = 0; i < size; i++) {
+            buff[i] = null;
+        }
+        frontQ = 0;
+    }
 
     public ROBEntry getEntryByTag(int tag) {
         return buff[tag];

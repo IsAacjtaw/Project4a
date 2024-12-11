@@ -360,7 +360,7 @@ public class PipelineSimulator {
 
     public void squashAllInsts() {
         regs.squashAll();
-
+        reorder.squashAll();
         loader.squashAll();
         alu.squashAll();
         multiplier.squashAll();
@@ -402,12 +402,14 @@ public class PipelineSimulator {
             cdb.dataValue = branchUnit.cdbBranch.getDataValue();
             branchUnit.cdbBranch.setDataValid(false);
             cdb.setDataValid(true);
-        } else if (loader.requestWriteback) {
+        }
+        else if(loader.requestWriteback){
             loader.setCanWriteback();
             cdb.dataTag = loader.writeTag;
             cdb.dataValue = loader.writeData;
             cdb.setDataValid(true);
         }
+        
 
         reorder.readCDB(cdb);
     }
