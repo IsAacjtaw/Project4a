@@ -129,8 +129,12 @@ public class ROBEntry {
         //writeValue = rob.regs.getReg(inst.regDest);
         
         switch (opcode) {
+            case J:
+                jumpPC = inst.getBranchTgt();
+                complete = true;
             case JAL:
                 predictTaken = inst.branchPrediction;
+                jumpPC = inst.getBranchTgt();
                 writeValue = inst.pc + 4;
                 writeReg = 31;
                 rob.setTagForReg(31, rearQ);
@@ -162,7 +166,7 @@ public class ROBEntry {
         
         // set mispredict here
         if (inst.determineIfBranch()) {
-            // What do I do?
+            jumpPC = inst.getBranchTgt();
         }
     }
 

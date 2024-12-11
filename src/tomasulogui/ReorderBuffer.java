@@ -24,6 +24,7 @@ public class ReorderBuffer {
             buff[i] = null;
         }
         frontQ = 0;
+        rearQ = 0;
     }
 
     public ROBEntry getEntryByTag(int tag) {
@@ -66,12 +67,9 @@ public class ReorderBuffer {
 
         if (retiree.mispredicted) {                                   // Case 2
             System.out.println("Branch mispredicted.");
-            if (retiree.opcode == INST_TYPE.JR || retiree.opcode == INST_TYPE.JALR) {
-                simulator.setPC(retiree.jumpPC);
-            }
+            simulator.setPC(retiree.jumpPC);
             simulator.squashAllInsts();
             shouldAdvance = false;
-            frontQ = (frontQ + 1) % size;
         }
         else if (determineIfBranch(retiree.opcode) || retiree.opcode == INST_TYPE.JR || retiree.opcode == INST_TYPE.J) {
             
