@@ -127,20 +127,36 @@ public class ROBEntry {
         opcode = inst.getOpcode();
         //writeValue = rob.regs.getReg(inst.regDest);
         
-        if (opcode == IssuedInst.INST_TYPE.JAL || opcode == IssuedInst.INST_TYPE.JALR) {
-            writeValue = inst.pc + 4;
-            writeReg = 31;
-            rob.setTagForReg(31, rearQ);
-            complete = true;
-        }
-        else if (opcode == IssuedInst.INST_TYPE.STORE) {
-            writeValue = rob.getDataForReg(inst.regSrc2);
-            storeAddr = inst.regSrc1;
-            storeOffset = inst.immediate;
-            complete = true;
-        }
-        else if (opcode == IssuedInst.INST_TYPE.NOP) {
-            complete = true;
+        switch (opcode) {
+            case JAL:
+                predictTaken = inst.branchPrediction;
+                writeValue = inst.pc + 4;
+                writeReg = 31;
+                rob.setTagForReg(31, rearQ);
+                complete = true;
+                break;
+            case JALR:
+                predictTaken = inst.branchPrediction;
+                mispredicted = true;
+                writeValue = inst.pc + 4;
+                writeReg = 31;
+                rob.setTagForReg(31, rearQ);
+                complete = true;
+                break;
+            case JR:
+                mispredicted = true;
+                break;
+            case STORE:
+                writeValue = rob.getDataForReg(inst.regSrc2);
+                storeAddr = inst.regSrc1;
+                storeOffset = inst.immediate;
+                complete = true;
+                break;
+            case NOP:
+                complete = true;
+                break;
+            default:
+                break;
         }
         
         // set mispredict here
