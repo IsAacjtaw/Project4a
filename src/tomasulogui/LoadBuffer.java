@@ -89,13 +89,14 @@ public class LoadBuffer {
             }
         }
         canWriteback = false;
-
+        /*
         if (writebackEntry != -1) {
             buff[writebackEntry].clockCycles++;
             if (buff[writebackEntry].clockCycles > 2) {
                 setCanWriteback();
             }
         }
+        */
     }
 
     public boolean isReservationStationAvail() {

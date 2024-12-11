@@ -1,12 +1,5 @@
 package tomasulogui;
 
-import static tomasulogui.IssuedInst.INST_TYPE.BEQ;
-import static tomasulogui.IssuedInst.INST_TYPE.BGEZ;
-import static tomasulogui.IssuedInst.INST_TYPE.BGTZ;
-import static tomasulogui.IssuedInst.INST_TYPE.BLEZ;
-import static tomasulogui.IssuedInst.INST_TYPE.BLTZ;
-import static tomasulogui.IssuedInst.INST_TYPE.BNE;
-
 public class BranchUnit extends FunctionalUnit {
     
     public static final int EXEC_CYCLES = 1;

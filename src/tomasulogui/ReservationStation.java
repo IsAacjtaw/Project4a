@@ -1,7 +1,6 @@
 package tomasulogui;
 
 import tomasulogui.IssuedInst.INST_TYPE;
-import static tomasulogui.IssuedInst.INST_TYPE.BEQ;
 
 public class ReservationStation {
 
@@ -113,9 +112,7 @@ public class ReservationStation {
             data1 = inst.regSrc1Value;
             data2 = inst.regSrc2Value;
             data1Valid = inst.regSrc1Valid;
-            System.out.println("reg source 1 val" +inst.regSrc1Valid);
             data2Valid = inst.regSrc2Valid;
-            System.out.println("reg source 2 val" +inst.regSrc2Valid);
             destTag = inst.getRegDestTag();
             stat = Status.SITTING; 
             
