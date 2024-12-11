@@ -12,6 +12,7 @@ public class ROBEntry {
     int instPC = -1;
     int writeReg = -1;
     int writeValue = -1;
+    int jumpPC = -1;
     
     int storeAddr = -1;
     int storeOffset = -1;
