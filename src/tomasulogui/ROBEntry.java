@@ -129,6 +129,14 @@ public class ROBEntry {
         
         if (opcode == IssuedInst.INST_TYPE.JAL || opcode == IssuedInst.INST_TYPE.JALR) {
             writeValue = inst.pc + 4;
+            writeReg = 31;
+            rob.setTagForReg(31, rearQ);
+            complete = true;
+        }
+        else if (opcode == IssuedInst.INST_TYPE.STORE) {
+            writeValue = rob.getDataForReg(inst.regSrc2);
+            storeAddr = inst.regSrc1;
+            storeOffset = inst.immediate;
             complete = true;
         }
         

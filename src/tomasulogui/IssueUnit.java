@@ -88,12 +88,22 @@ public class IssueUnit {
         // We check the BTB, and put prediction if branch, updating PC
         // if pred taken, incr PC otherwise
         if ((ROBFree && reservation0Free) || (ROBFree && reservation1Free) || 
-                type == EXEC_TYPE.LOAD || type == EXEC_TYPE.STORE) {
+                type == EXEC_TYPE.LOAD) {
             issuee = issuee.createIssuedInst(instruc);
             issuee.setPC(simulator.getPC());
             simulator.pc.incrPC();
             // We then send this to the ROB, which fills in the data fields
             simulator.reorder.updateInstForIssue(issuee);
+        }
+        else if (type == EXEC_TYPE.STORE) {
+            issuee = issuee.createIssuedInst(instruc);
+            issuee.setPC(simulator.getPC());
+            //System.out.println(issuee.regSrc2);
+            //System.out.println(simulator.regs.getSlotForReg(issuee.regSrc2));
+            if (simulator.regs.getSlotForReg(issuee.regSrc2) == -1) {
+                simulator.pc.incrPC();
+                simulator.reorder.updateInstForIssue(issuee);
+            }
         }
         if (type == EXEC_TYPE.BRANCH) {
             simulator.btb.predictBranch(issuee);

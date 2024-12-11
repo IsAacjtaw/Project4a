@@ -63,12 +63,12 @@ public class ReorderBuffer {
             shouldAdvance = false;
             frontQ = (frontQ + 1) % size;
         }
-        else if (determineIfBranch(retiree.opcode)) {
+        else if (determineIfBranch(retiree.opcode) && retiree.opcode != INST_TYPE.JAL && retiree.opcode != INST_TYPE.JALR) {
             
         }
         else if (retiree.opcode.equals(IssuedInst.INST_TYPE.STORE)) { // Case 3
-            System.out.println("bruh");
-            simulator.memory.setIntDataAtAddr(retiree.storeAddr + retiree.storeOffset, retiree.writeValue);
+            System.out.println("bruh, we gotta store " + retiree.writeValue + " at " + regs.getReg(retiree.storeAddr) + " + " + retiree.storeOffset);
+            simulator.memory.setIntDataAtAddr(regs.getReg(retiree.storeAddr) + retiree.storeOffset, retiree.writeValue);
         }
         else {                                                        // Case 1
             if (retiree.isComplete()) {
