@@ -122,13 +122,20 @@ public class ReservationStation {
           //  address = ;
             predictedTaken = inst.getBranchPrediction();
         }
-        if (inst.opcode == INST_TYPE.J || inst.opcode == INST_TYPE.JAL ||
-            inst.opcode == INST_TYPE.JALR){
+        if (inst.opcode == INST_TYPE.J || inst.opcode == INST_TYPE.JAL){
             destTag = inst.getRegDestTag();
             data1Valid = true;
             data2Valid = true;
             stat = Status.SITTING; 
             predictedTaken = inst.getBranchPrediction();
-        }   
+        }
+        if(inst.opcode == INST_TYPE.JALR || inst.opcode == INST_TYPE.JR) {
+            destTag = inst.getRegDestTag();
+            tag1 = inst.regSrc1Tag;
+            data1 = inst.regSrc1Value;
+            data2Valid = true;
+            stat = Status.SITTING; 
+            predictedTaken = inst.getBranchPrediction();
+        }
     }
 }
