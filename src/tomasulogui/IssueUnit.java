@@ -90,7 +90,12 @@ public class IssueUnit {
         if ((ROBFree && reservation0Free) || (ROBFree && reservation1Free) || 
                 type == EXEC_TYPE.LOAD) {
             issuee = issuee.createIssuedInst(instruc);
-
+            // The following lines are for debugging only unless it works. ******************************************
+            if (issuee.regDest != -1) {
+                System.out.println(issuee.regDest + " " + simulator.regs.getSlotForReg(issuee.regDest));
+                if (simulator.regs.getSlotForReg(issuee.regDest) != -1) return;
+            }
+            // ******************************************************************************************************
             issuee.setPC(simulator.getPC());
             simulator.btb.predictBranch(issuee);
           //  simulator.pc.incrPC();
